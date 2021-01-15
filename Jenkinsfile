@@ -88,32 +88,20 @@ pipeline {
         //     }
         // }
 
-        stage('Build package') {
+        stage('Deployment') {
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
                 }
             }
             steps {
-                sh  ''' virtualenv -p /usr/bin/python3 venv
-                        source venv/bin/activate
-                        python3 setup.py bdist_wheel
+                sh  '''cd /var/lib/jenkins/workspace/PraxiResearchCloud/ansible/video-pipeline-deploy/ && ansible-playbook deploy.yaml  -i ../inventory 
                     '''
             }
-            post {
-                always {
-                    // Archive unit tests for the future
-                    archiveArtifacts allowEmptyArchive: true, artifacts: 'dist/*whl', fingerprint: true
-                }
-            }
+             
         }
 
-        // stage("Deploy to PyPI") {
-        //     steps {
-        //         sh """twine upload dist/*
-        //         """
-        //     }
-        // }
+ 
     }
 
     post {
