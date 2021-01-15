@@ -27,7 +27,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv and installing requirements"
-                sh  '''sudo pip3 install -r requirements/dev.txt  > pip_install_out.txt 2>&1'''
+                sh  '''sudo pip3 install -r requirements/dev.txt'''
             }
         }
 
