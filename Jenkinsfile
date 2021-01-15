@@ -71,22 +71,22 @@ pipeline {
             }
         }
 
-        stage('Acceptance tests') {
-            steps {
-                sh  ''' source venv/bin/activate
-                        behave -f=formatters.cucumber_json:PrettyCucumberJSONFormatter -o ./reports/acceptance.json || true
-                    '''
-            }
-            post {
-                always {
-                    cucumber (buildStatus: 'SUCCESS',
-                    fileIncludePattern: '**/*.json',
-                    jsonReportDirectory: './reports/',
-                    parallelTesting: true,
-                    sortingMethod: 'ALPHABETICAL')
-                }
-            }
-        }
+        // stage('Acceptance tests') {
+        //     steps {
+        //         sh  ''' source venv/bin/activate
+        //                 behave -f=formatters.cucumber_json:PrettyCucumberJSONFormatter -o ./reports/acceptance.json || true
+        //             '''
+        //     }
+        //     post {
+        //         always {
+        //             pytest (buildStatus: 'SUCCESS',
+        //             fileIncludePattern: '**/*.json',
+        //             jsonReportDirectory: './reports/',
+        //             parallelTesting: true,
+        //             sortingMethod: 'ALPHABETICAL')
+        //         }
+        //     }
+        // }
 
         stage('Build package') {
             when {
