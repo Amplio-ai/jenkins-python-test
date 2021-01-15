@@ -11,7 +11,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timestamps()
     }
-
+    // Enviromental Variables Goes here
     environment {
       PATH="/var/lib/jenkins/miniconda3/bin:$PATH"
     }
@@ -27,7 +27,10 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv and installing requirements"
-                sh  '''pip3 install -r requirements/dev.txt'''
+                sh  '''virtualenv venv 
+                       source venv/bin/activate
+                       pip3 install -r requirements/dev.txt
+                    '''
             }
         }
 
