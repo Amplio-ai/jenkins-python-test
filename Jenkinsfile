@@ -33,7 +33,23 @@ pipeline {
                     '''
             }
         }
- 
+
+        stage('Static code metrics') {
+            steps {
+                echo "Test coverage"
+                sh  ''' source venv/bin/activate
+                        coverage run irisvmpy/iris.py 1 1 2 3
+                        python -m coverage xml -o reports/coverage.xml
+                    '''
+                echo "Style check"
+                sh  ''' source venv/bin/activate
+                        pylint irisvmpy || true
+                    '''
+            }
+           
+        }
+
+
 
         stage('Unit tests') {
             steps {
