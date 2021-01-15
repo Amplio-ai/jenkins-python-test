@@ -27,41 +27,39 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv and installing requirements"
-                sh  '''virtualenv -p /usr/bin/python2.7 venv
+                sh  '''virtualenv -p /usr/bin/python3 venv
                        source venv/bin/activate
                        pip3 install -r requirements/dev.txt
                     '''
             }
         }
 
-        stage('Static code metrics') {
-            steps {
-                echo "Install Dependences"
-                sh  ''' source venv/bin/activate
-                        pip install coverage 
-                        pip install click 
-                        python -m coverage xml -o reports/coverage.xml
-                    '''
+        // stage('Static code metrics') {
+        //     steps {
+        //         echo "Install Dependences"
+        //         sh  ''' source venv/bin/activate
+        //                 python3 -m coverage xml -o reports/coverage.xml
+        //             '''
 
-                echo "Test coverage"
-                sh  ''' source venv/bin/activate
-                        coverage run irisvmpy/iris.py 1 1 2 3
-                        python -m coverage xml -o reports/coverage.xml
-                    '''
-                echo "Style check"
-                sh  ''' source venv/bin/activate
-                        pylint irisvmpy || true
-                    '''
-            }
+        //         echo "Test coverage"
+        //         sh  ''' source venv/bin/activate
+        //                 coverage run irisvmpy/iris.py 1 1 2 3
+        //                 python3 -m coverage xml -o reports/coverage.xml
+        //             '''
+        //         echo "Style check"
+        //         sh  ''' source venv/bin/activate
+        //                 pylint irisvmpy || true
+        //             '''
+        //     }
            
-        }
+        // }
 
 
 
         stage('Unit tests') {
             steps {
                 sh  ''' source activate ${BUILD_TAG}
-                        python -m pytest --verbose --junit-xml reports/unit_tests.xml
+                        python3 -m pytest --verbose tests/test_dummy.py
                     '''
             }
             post {
@@ -97,7 +95,7 @@ pipeline {
             }
             steps {
                 sh  ''' source activate ${BUILD_TAG}
-                        python setup.py bdist_wheel
+                        python3 setup.py bdist_wheel
                     '''
             }
             post {
