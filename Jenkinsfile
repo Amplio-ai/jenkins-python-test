@@ -58,8 +58,9 @@ pipeline {
 
         stage('Unit tests') {
             steps {
-                sh  ''' source activate ${BUILD_TAG}
-                        python3 -m pytest --verbose tests/test_dummy.py
+                sh  ''' virtualenv -p /usr/bin/python3 venv
+                        source venv/bin/activate
+                        python3 -m pytest --verbose ./tests/test_dummy.py
                     '''
             }
             post {
