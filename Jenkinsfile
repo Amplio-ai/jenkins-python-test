@@ -95,7 +95,7 @@ pipeline {
                 }
             }
             steps {
-                sh  '''cd /var/lib/jenkins/workspace/PraxiResearchCloud/ansible/video-pipeline-deploy/ && ansible-playbook deploy.yaml  -i ../inventory 
+                sh  '''cd /var/lib/jenkins/workspace/Research-Website-Cloud-Infra/ansible/video-pipeline-deploy && ansible-playbook deploy.yaml  -i ../inventory 
                     '''
             }
              
