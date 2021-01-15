@@ -73,7 +73,7 @@ pipeline {
 
         stage('Acceptance tests') {
             steps {
-                sh  ''' source activate ${BUILD_TAG}
+                sh  ''' source venv/bin/activate
                         behave -f=formatters.cucumber_json:PrettyCucumberJSONFormatter -o ./reports/acceptance.json || true
                     '''
             }
@@ -95,7 +95,8 @@ pipeline {
                 }
             }
             steps {
-                sh  ''' source activate ${BUILD_TAG}
+                sh  ''' virtualenv -p /usr/bin/python3 venv
+                        source venv/bin/activate
                         python3 setup.py bdist_wheel
                     '''
             }
