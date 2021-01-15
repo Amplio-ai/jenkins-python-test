@@ -26,8 +26,8 @@ pipeline {
 
         stage('Build environment') {
             steps {
-                echo "Building virtualenv"
-                sh  '''sudo pip3 install -r requirements/dev.txt '''
+                echo "Building virtualenv and installing requirements"
+                sh  '''sudo pip3 install -r requirements/dev.txt  > pip_install_out.txt 2>&1'''
             }
         }
 
@@ -129,7 +129,7 @@ pipeline {
 
     post {
         always {
-            sh 'conda remove --yes -n ${BUILD_TAG} --all'
+            sh 'echo post steps and virtual env cleanup goes here'
         }
         failure {
             emailext (
