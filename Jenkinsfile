@@ -97,8 +97,8 @@ pipeline {
             steps {
                 sh  '''
                         cd /var/lib/jenkins/workspace/Research-Website-Cloud-Infra/ansible/video-pipeline-deploy && ansible-playbook deploy.yaml  -i ../inventory 
-                        cd /root/PraxiResearchCloud/terraform/GKE-CLUSTER-Template && terraform init --reconfigure
-                        terraform validate
+                        cd /root/PraxiResearchCloud/terraform/GKE-CLUSTER-Template && /usr/local/bin/terraform init --reconfigure
+                        /usr/local/bin/terraform validate
                     '''
             }
              
