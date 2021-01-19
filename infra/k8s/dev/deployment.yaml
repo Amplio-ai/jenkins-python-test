@@ -1,21 +1,21 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: zoneprinter
+  name: videoapp
   labels:
-    app: zoneprinter
+    app: videoapp
 spec:
   selector:
     matchLabels:
-      app: zoneprinter
+      app: videoapp
   template:
     metadata:
       labels:
-        app: zoneprinter
+        app: videoapp
     spec:
       containers:
       - name: frontend
-        image: gcr.io/google-samples/zone-printer:0.1
+        image: gcr.io/google-samples/video-app-image:0.1
         ports:
           - containerPort: 80
 
