@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    triggers {
-        pollSCM('*/5 * * * 1-5')
-    }
+    // triggers {
+    //     pollSCM('*/5 * * * 1-5')
+    // }
 
     options {
         skipDefaultCheckout(true)
