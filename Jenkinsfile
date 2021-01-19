@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    triggers {
-        pollSCM('*/5 * * * 1-5')
-    }
+    // triggers {
+    //     pollSCM('*/5 * * * 1-5')
+    // }
 
     options {
         skipDefaultCheckout(true)
@@ -95,7 +95,10 @@ pipeline {
                 }
             }
             steps {
-                sh  '''cd /var/lib/jenkins/workspace/Research-Website-Cloud-Infra/ansible/video-pipeline-deploy && ansible-playbook deploy.yaml  -i ../inventory 
+                sh  '''
+                        cd /var/lib/jenkins/workspace/Research-Website-Cloud-Infra/ansible/video-pipeline-deploy && ansible-playbook deploy.yaml  -i ../inventory 
+                        cd /root/PraxiResearchCloud/terraform/GKE-CLUSTER-Template && /usr/local/bin/terraform init --reconfigure
+                        /usr/local/bin/terraform validate
                     '''
             }
              
